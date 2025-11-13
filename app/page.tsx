@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import FileUploader from '@/components/upload/FileUploader';
+import EnhancedUploader from '@/components/upload/EnhancedUploader';
 import FileDownloader from '@/components/upload/FileDownloader';
 
 export default function Home() {
@@ -62,7 +62,7 @@ export default function Home() {
 
         {/* Content */}
         <div className="pb-12">
-          {activeTab === 'upload' ? <FileUploader /> : <FileDownloader />}
+          {activeTab === 'upload' ? <EnhancedUploader /> : <FileDownloader />}
         </div>
       </div>
 

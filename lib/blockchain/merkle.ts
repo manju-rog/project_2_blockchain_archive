@@ -21,7 +21,7 @@ export function createMerkleTree(fileHashes: string[]): MerkleTree {
   const leaves = fileHashes.map(hash => Buffer.from(hash.replace('0x', ''), 'hex'));
 
   // Create tree using keccak256
-  const tree = new MerkleTree(leaves, (data) => {
+  const tree = new MerkleTree(leaves, (data: Buffer) => {
     return Buffer.from(ethers.keccak256(data).replace('0x', ''), 'hex');
   }, { sortPairs: true });
 
@@ -65,7 +65,7 @@ export function verifyMerkleProof(
   leaf: string,
   root: string
 ): boolean {
-  const tree = new MerkleTree([], (data) => {
+  const tree = new MerkleTree([], (data: Buffer) => {
     return Buffer.from(ethers.keccak256(data).replace('0x', ''), 'hex');
   }, { sortPairs: true });
 

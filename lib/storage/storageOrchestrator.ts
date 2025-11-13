@@ -7,11 +7,17 @@ import { uploadToIPFS, uploadJSONToIPFS } from '../ipfs/ipfsClient';
  */
 
 export interface UploadProgress {
-  stage: 'chunking' | 'encrypting' | 'uploading' | 'complete';
+  stage: 'chunking' | 'encrypting' | 'uploading' | 'blockchain' | 'complete';
   progress: number;
   currentChunk?: number;
   totalChunks?: number;
   message?: string;
+  blockchain?: {
+    registering?: boolean;
+    txHash?: string;
+    blockNumber?: number;
+    chain?: string;
+  };
 }
 
 export interface StoredFile {
@@ -30,6 +36,14 @@ export interface StoredFile {
   encrypted: boolean;
   createdAt: number;
   tags?: string[];
+  blockchain?: {
+    registered: boolean;
+    txHash?: string;
+    blockNumber?: number;
+    chain?: string;
+    timestamp?: number;
+  };
+  providers?: string[]; // IPFS, Pinata, Web3.Storage, etc.
 }
 
 export interface UploadOptions {
@@ -38,6 +52,9 @@ export interface UploadOptions {
   chunkSize?: number;
   tags?: string[];
   onProgress?: (progress: UploadProgress) => void;
+  registerOnBlockchain?: boolean;
+  blockchainChain?: string;
+  multiProvider?: boolean; // Upload to multiple IPFS providers
 }
 
 /**
